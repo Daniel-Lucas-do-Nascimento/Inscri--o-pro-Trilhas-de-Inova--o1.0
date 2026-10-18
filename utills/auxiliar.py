@@ -45,9 +45,47 @@ def validar_email():
                for dado in dados:
                     if dado['e-mail'] == email:
                          verificador_copia = True
-          if re.search(r"[a-z]@gmail.com",email) and verificador_copia == False and (not re.search(r"\s",email)) or re.search(r"[a-z]@hotmail.com",email) and verificador_copia == False and (not re.search(r"\s",email)):
+          if re.search(r"@gmail.com",email) and verificador_copia == False and (not re.search(r"\s",email)) and (not(re.search(r"[A-Z]",email))) or re.search(r"@hotmail.com",email) and verificador_copia == False and (not re.search(r"\s",email)) and (not(re.search(r"[A-Z]",email))):
                return email
           elif verificador_copia == True:
                print('E-mail já cadastrado!')
           else:
                print('Formato de e-mail inválido!')
+
+
+def escolha_curso():
+     cursos = ['Desenvolvimento de Software',
+    'Estetíca',
+    'Cabelereiro',
+    'Informática',
+    'Administração',
+    'Logística',
+    'Gastronomia', 
+    'Confeitaria', 
+    'Panificação', 
+    'Alimentos', 
+    'Modelagem do Vestuário']
+     for ind,curso in enumerate(cursos):
+          print(f'[{ind + 1}]:{curso}')
+     while True:
+        try:
+            esco = int(input('Digite o número do curso escolhido: '))
+            if esco > 0 and esco < len(cursos):
+                break
+            else:
+                 print('Escolha de curso inválida!')
+        except ValueError:
+             print('Formato de escolha inválido! Digite um número inteiro!')
+     return cursos[esco-1]
+
+
+def id_inscricao():
+     maior_id = 0
+     dados = ler_json()
+     if len(dados) > 0:
+        for dado in dados:
+             if dado['id'] > maior_id:
+                  maior_id = dado['id']
+        return maior_id + 1
+     else:
+          return 1
