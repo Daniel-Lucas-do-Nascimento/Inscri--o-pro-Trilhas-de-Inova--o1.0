@@ -1,5 +1,6 @@
 import json
 import re
+from datetime import datetime
 
 
 def titulo(texto):
@@ -89,3 +90,41 @@ def id_inscricao():
         return maior_id + 1
      else:
           return 1
+
+
+def validar_datanasc():
+     hoje = datetime.today()
+     while True:
+               data = input('Digite sua data de Nascimento: (**/**/****): ')
+               if re.search(r'\d\d/\d\d/\d\d\d\d',data):
+                    try:
+                         nascimento = datetime.strptime(data,'%d/%m/%Y')
+                         if nascimento < hoje:
+                              return data
+                         else:
+                              print('Data de nascimento inválida!')
+                    except ValueError:
+                         print('Data inexistente!')
+               else:
+                    print('Formato de Data de nascimento inválido!')
+
+
+def validar_telefone():
+     while True:
+          tele = input('Digite seu número de telefone: [(**)****-****]: ')
+          tele2 = re.sub(r'[()]','',tele)
+          if re.search(r'\d\d\d\d\d\d-\d\d\d\d',tele2) and len(tele2)-1 == 10:
+               return tele
+          else:
+               print('Número de telefone inválido!')
+
+def validar_nome():
+     while True:
+          nome = input('Digite seu nome completo: ')
+          nome2 = nome.lower()
+          if re.search(r'[a-z]+',nome2) and not(re.search(r'\d+',nome)):
+               return nome
+          else:
+               print('Nome inválido')
+
+     
