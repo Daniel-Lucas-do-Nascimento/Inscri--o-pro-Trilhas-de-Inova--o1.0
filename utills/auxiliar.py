@@ -1,4 +1,5 @@
 import json
+from cidades.lista import cidade_mg
 import re
 from datetime import datetime
 
@@ -7,6 +8,12 @@ def titulo(texto):
     print('='*40)
     print(texto.center(40))
     print('='*40)
+
+
+def subtitulo(texto):
+     print('='*20)
+     print(texto.center(20))
+     print('='*20)
 
 
 def salvar_json(dados):
@@ -126,5 +133,56 @@ def validar_nome():
                return nome
           else:
                print('Nome inválido')
+
+def validar_instituicao():
+     locais = {1: 'Senai(Betim)',
+     2: 'Alpha Unipac (Sarzedo)',
+     3: 'Graú Técnico (Contagem)',
+     4: 'Axioma (Brumadinho)',
+     5: 'Senai (Durval de Barros)',
+     6: 'Yeshua (Barreiro)'}
+     for i,o in locais.items():
+          print(f'[{i}]: {o}')
+     while True:
+          try:
+               local = int(input('Selecione o local: '))
+               if local > 0 and local <= 6:
+                    return locais[local]
+               else:
+                    print('Escolha de local inválida!')
+          except ValueError:
+               print('Digite o Número de uma das opções! ')
+
+
+def validar_turno():
+     turnos = {1 : 'Manhã',
+               2 : 'Tarde',
+               3 : 'Noite'}
+     for i,o in turnos.items():
+          print(f'[{i}]: {o}')
+     while True:
+          try:
+               turno = int(input('Selecione o seu turno Favorito: '))
+               if turno > 0 and turno <= 3:
+                    return turnos[turno]
+               else:
+                    print('Escolha de turno inválida!')
+          except ValueError:
+               print('Digite o Número do Turno Selecionado!')
+
+
+def validar_cep():
+     veri = False
+     while True:
+          cidade = input('Digite o nome da sua cidade: ')
+          cidade2 = cidade.lower()
+          for cidade3 in cidade_mg:
+               if  cidade2 == cidade3: 
+                    veri = True
+                    return f'Cidade: {cidade} / Estado: Minas Gerais / País: Brasil'
+          if veri == False:
+               print('Cidade não encontrada!')
+     
+
 
      
