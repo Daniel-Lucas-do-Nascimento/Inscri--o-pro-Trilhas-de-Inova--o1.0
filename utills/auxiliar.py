@@ -1,5 +1,6 @@
 import json
-from cidades.lista import cidade_mg
+from cidades.lista import cidade_mg,escolas_mg
+from service.funcionalidades import inscricao,consulta_de_inscricao
 import re
 from datetime import datetime
 
@@ -11,9 +12,29 @@ def titulo(texto):
 
 
 def subtitulo(texto):
-     print('='*20)
-     print(texto.center(20))
-     print('='*20)
+     print('='*30)
+     print(texto.center(30))
+     print('='*30)
+
+
+def validar_op():
+     while True:
+          try:
+               op = int(input('Digite sua escolha: '))
+               if op == 1:
+                    inscricao()
+                    break
+               elif op == 2:
+                    consulta_de_inscricao()
+                    break
+               elif op == 100:
+                    break
+                    break
+               else:
+                    print('Opção Inválida!')
+          except ValueError:
+               print('Digite um número inteiro!')
+
 
 
 def salvar_json(dados):
@@ -106,8 +127,13 @@ def validar_datanasc():
                if re.search(r'\d\d/\d\d/\d\d\d\d',data):
                     try:
                          nascimento = datetime.strptime(data,'%d/%m/%Y')
-                         if nascimento < hoje:
+                         idade = hoje - nascimento
+                         #Preciso terminar de validar a idade!
+                         if nascimento < hoje and idade >= 16:
                               return data
+                         elif idade < 16:
+                              print('\033[31mIdade menor que 16!!\033[m')
+                              break
                          else:
                               print('Data de nascimento inválida!')
                     except ValueError:
@@ -182,7 +208,55 @@ def validar_cep():
                     return f'Cidade: {cidade} / Estado: Minas Gerais / País: Brasil'
           if veri == False:
                print('Cidade não encontrada!')
-     
 
+
+def validar_formacao():
+     subtitulo('Formação')
+     formacao = {1 : 'Ensino Fundamental',
+                 2 : 'Ensino Médio',
+                 3 : 'Ensino Superior'}
+     print(formacao)
+     while True:
+          try:
+               escolaridade = int(input('Digite o número da sua escolaridade: '))
+               if escolaridade > 0 and escolaridade <= 3:
+                    return formacao[escolaridade]
+               else:
+                    print('Opção inválida! Digite uma das opções acima!')
+          except ValueError:
+               print('Digite um número inteiro!')
+
+def validar_escola_atual():
+     subtitulo('Escola Atual')
+     escolas = escolas_mg
+     veri = False
+     while True:
+          escola_hj = input('Digite o nome da escola onde estuda atualmente: ')
+          for escola in escolas:
+               if escola_hj.lower() == escola:
+                    veri = True
+                    return escola_hj
+          if veri == False:
+               print('Escola não encontrada!')
+
+def validar_rede_de_ensino():
+     subtitulo('Rede de Ensino')
+     redes = {1 : 'Pública',
+              2 : 'Privada'}
+     print(redes)
+     while True:
+          try:
+               rede = int(input('Digite a opção que representa sua rede de ensino: '))
+               if rede > 0 and rede <= 2:
+                    return redes[rede]
+               else:
+                    print('Opção Inválida!')
+          except ValueError:
+               print('Digite um número inteiro!')
+
+
+
+
+     
 
      
