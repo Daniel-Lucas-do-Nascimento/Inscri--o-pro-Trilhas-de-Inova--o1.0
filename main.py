@@ -1,5 +1,7 @@
-from utills.auxiliar import titulo,validar_op
-#Preciso terminar de validar a idade na função validar_nasc!!
+from utills.auxiliar import titulo
+from utills.auxiliar2 import validar_op
+#Preciso Melhorar várias coisas ainda!!!!
+
 
 while True:
     titulo('Inscrição Trilhas de Futuro 7ª Edição')

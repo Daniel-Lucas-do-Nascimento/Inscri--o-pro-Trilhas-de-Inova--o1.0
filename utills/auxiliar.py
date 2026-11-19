@@ -1,6 +1,5 @@
 import json
 from cidades.lista import cidade_mg,escolas_mg
-from service.funcionalidades import inscricao,consulta_de_inscricao
 import re
 from datetime import datetime
 
@@ -15,25 +14,6 @@ def subtitulo(texto):
      print('='*30)
      print(texto.center(30))
      print('='*30)
-
-
-def validar_op():
-     while True:
-          try:
-               op = int(input('Digite sua escolha: '))
-               if op == 1:
-                    inscricao()
-                    break
-               elif op == 2:
-                    consulta_de_inscricao()
-                    break
-               elif op == 100:
-                    break
-                    break
-               else:
-                    print('Opção Inválida!')
-          except ValueError:
-               print('Digite um número inteiro!')
 
 
 
@@ -83,6 +63,7 @@ def validar_email():
 
 
 def escolha_curso():
+     titulo('Escolha do Curso, Instituição E Turno')
      cursos = ['Desenvolvimento de Software',
     'Estetíca',
     'Cabelereiro',
@@ -127,9 +108,8 @@ def validar_datanasc():
                if re.search(r'\d\d/\d\d/\d\d\d\d',data):
                     try:
                          nascimento = datetime.strptime(data,'%d/%m/%Y')
-                         idade = hoje - nascimento
-                         #Preciso terminar de validar a idade!
-                         if nascimento < hoje and idade >= 16:
+                         idade = hoje.year - nascimento.year
+                         if nascimento.year < hoje.year and idade >= 16:
                               return data
                          elif idade < 16:
                               print('\033[31mIdade menor que 16!!\033[m')
@@ -151,7 +131,10 @@ def validar_telefone():
           else:
                print('Número de telefone inválido!')
 
+
+
 def validar_nome():
+     titulo('Dados Pessoais')
      while True:
           nome = input('Digite seu nome completo: ')
           nome2 = nome.lower()
@@ -160,7 +143,10 @@ def validar_nome():
           else:
                print('Nome inválido')
 
+
+
 def validar_instituicao():
+     subtitulo('Instituição')
      locais = {1: 'Senai(Betim)',
      2: 'Alpha Unipac (Sarzedo)',
      3: 'Graú Técnico (Contagem)',
@@ -180,7 +166,9 @@ def validar_instituicao():
                print('Digite o Número de uma das opções! ')
 
 
+
 def validar_turno():
+     subtitulo('Turno')
      turnos = {1 : 'Manhã',
                2 : 'Tarde',
                3 : 'Noite'}
@@ -197,7 +185,10 @@ def validar_turno():
                print('Digite o Número do Turno Selecionado!')
 
 
+
+
 def validar_cep():
+     subtitulo('Endereço')
      veri = False
      while True:
           cidade = input('Digite o nome da sua cidade: ')
@@ -208,6 +199,7 @@ def validar_cep():
                     return f'Cidade: {cidade} / Estado: Minas Gerais / País: Brasil'
           if veri == False:
                print('Cidade não encontrada!')
+
 
 
 def validar_formacao():
@@ -226,6 +218,8 @@ def validar_formacao():
           except ValueError:
                print('Digite um número inteiro!')
 
+
+
 def validar_escola_atual():
      subtitulo('Escola Atual')
      escolas = escolas_mg
@@ -238,6 +232,8 @@ def validar_escola_atual():
                     return escola_hj
           if veri == False:
                print('Escola não encontrada!')
+
+
 
 def validar_rede_de_ensino():
      subtitulo('Rede de Ensino')
@@ -254,6 +250,75 @@ def validar_rede_de_ensino():
           except ValueError:
                print('Digite um número inteiro!')
 
+
+
+id = 0
+nome = ''
+cpf = ''
+email = ''
+data_nasc = ''
+telefone = ''
+cep = ''
+formacao = ''
+escola = ''
+rede = ''
+curso = ''
+local = ''
+turno = ''
+def entrada_de_dados():
+    id = id_inscricao()
+    nome = validar_nome()
+    cpf = validar_cpf()
+    email = validar_email()
+    data_nasc = validar_datanasc()
+    telefone = validar_telefone()
+    cep = validar_cep()
+    formacao = validar_formacao()
+    escola = validar_escola_atual()
+    rede = validar_rede_de_ensino()
+    curso = escolha_curso()
+    local = validar_instituicao()
+    turno = validar_turno()
+
+
+def cadastro_de_dados():
+    dados = ler_json()
+    dado = {'id': id,
+            'nome':nome,
+            'cpf':cpf,
+            'data de nascimento':data_nasc,
+            'cep':cep,
+            'telefone':telefone,
+            'e-mail':email,
+            'formacao':formacao,
+            'escola': escola,
+            'rede de ensino': rede,
+            'Curso':curso,
+            'instituicao':local,
+            'turno':turno}
+    dados.append(dado)
+    print('\033[31mGuarde esse id para poder consultar sua inscrição depois!')
+    print(f'(ID:{id}\033[m)')
+    salvar_json(dados)
+
+
+def consultar_inscricao():
+    dados = ler_json()
+    veri = False
+    while True:
+        try:
+            id = int(input('Digite o id da sua inscrição: '))
+            for dado in dados:
+                if id == dado['id']:
+                    for i,o in dado.items():
+                        print(f'{i} : {o}\n')
+                    veri = True
+            if veri == False:
+                print('Inscrição não encontrada!')
+            else:
+                break
+        except ValueError:
+            print('Digite um número inteiro!')
 
 
 
