@@ -1,9 +1,10 @@
-from utills.auxiliar import entrada_de_dados, cadastro_de_dados,consultar_inscricao,titulo
+from utills.auxiliar import titulo,entrada_de_dados_e_cadastro,consultar_inscricao
+
+
 
 def inscricao():
    titulo('Inscrição Trilhas de Futuro 7° Edição')
-   entrada_de_dados()
-   cadastro_de_dados() 
+   entrada_de_dados_e_cadastro() 
     
 
 

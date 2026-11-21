@@ -147,12 +147,12 @@ def validar_nome():
 
 def validar_instituicao():
      subtitulo('Instituição')
-     locais = {1: 'Senai(Betim)',
-     2: 'Alpha Unipac (Sarzedo)',
-     3: 'Graú Técnico (Contagem)',
-     4: 'Axioma (Brumadinho)',
-     5: 'Senai (Durval de Barros)',
-     6: 'Yeshua (Barreiro)'}
+     locais = {1: 'Cenai(Betim)',
+     2: 'Alpha RUnipac (Sarzedo)',
+     3: 'Graú HTécnico (Contagem)',
+     4: 'RAxioma (Brumadinho)',
+     5: 'Cenai (Durval de Barros)',
+     6: 'RYeshua (Barreiro)'}
      for i,o in locais.items():
           print(f'[{i}]: {o}')
      while True:
@@ -251,21 +251,7 @@ def validar_rede_de_ensino():
                print('Digite um número inteiro!')
 
 
-
-id = 0
-nome = ''
-cpf = ''
-email = ''
-data_nasc = ''
-telefone = ''
-cep = ''
-formacao = ''
-escola = ''
-rede = ''
-curso = ''
-local = ''
-turno = ''
-def entrada_de_dados():
+def entrada_de_dados_e_cadastro():
     id = id_inscricao()
     nome = validar_nome()
     cpf = validar_cpf()
@@ -279,27 +265,25 @@ def entrada_de_dados():
     curso = escolha_curso()
     local = validar_instituicao()
     turno = validar_turno()
-
-
-def cadastro_de_dados():
     dados = ler_json()
     dado = {'id': id,
-            'nome':nome,
-            'cpf':cpf,
-            'data de nascimento':data_nasc,
-            'cep':cep,
-            'telefone':telefone,
-            'e-mail':email,
-            'formacao':formacao,
-            'escola': escola,
-            'rede de ensino': rede,
-            'Curso':curso,
-            'instituicao':local,
-            'turno':turno}
+               'nome':nome,
+               'cpf':cpf,
+               'data de nascimento':data_nasc,
+               'cep':cep,
+               'telefone':telefone,
+               'e-mail':email,
+               'formacao':formacao,
+               'escola': escola,
+               'rede de ensino': rede,
+               'Curso':curso,
+               'instituicao':local,
+               'turno':turno}
     dados.append(dado)
     print('\033[31mGuarde esse id para poder consultar sua inscrição depois!')
-    print(f'(ID:{id}\033[m)')
+    print(f'(ID:{id})\033[m')
     salvar_json(dados)
+
 
 
 def consultar_inscricao():
@@ -319,9 +303,3 @@ def consultar_inscricao():
                 break
         except ValueError:
             print('Digite um número inteiro!')
-
-
-
-     
-
-     
