@@ -1,2 +1,2 @@
-# Inscrição-pro-Trilhas-de-Futuro
+# Inscrição-pro-Trilhas-de-Inovação
 
